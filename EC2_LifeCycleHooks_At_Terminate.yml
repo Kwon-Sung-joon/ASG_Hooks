@@ -1,0 +1,27 @@
+---
+schemaVersion: "2.2"
+description: "Command Document for set hostname with tags"
+parameters:
+  LogPath:
+    type: String
+    description: "(Required) log path"
+    default: "HtlPrice"
+  Bucket:
+    type: String
+    description: "(Required) s3 bucket"
+    default: "htlprice-logs"    
+mainSteps:
+- action: "aws:runShellScript"
+  name: "LogBackup"
+  inputs:
+    runCommand:
+    - |
+      #!/bin/bash
+      cd /app/servers
+      find ./{{ LogPath }}*/logs/ | cut -c 3- > log_lists.txt
+      FILE=/app/servers/log_lists.txt
+      
+      while IFS= read -r line || [[ -n "$line" ]]; do
+        /bin/aws s3 mv ./$line s3://{{Bucket}}/$(hostname)/$line
+      done < "$FILE"
+      rm $FILE
