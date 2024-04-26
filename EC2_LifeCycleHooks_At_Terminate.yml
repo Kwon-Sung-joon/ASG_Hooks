@@ -5,11 +5,9 @@ parameters:
   LogPath:
     type: String
     description: "(Required) log path"
-    default: "HtlPrice"
   Bucket:
     type: String
     description: "(Required) s3 bucket"
-    default: "htlprice-logs"    
 mainSteps:
 - action: "aws:runShellScript"
   name: "LogBackup"
