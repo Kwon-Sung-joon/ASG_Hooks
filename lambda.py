@@ -43,20 +43,14 @@ def terminate_send_command(detail):
                 break;
     
     #set logPath with GROUP tag values
-    if WAS == 'Prod_backend_htlprice':
-        logPath='HtlPrice';
-        S3_Bucket='htlprice-logs';
+    if WAS == 'service-A':
+        logPath='logpathA';
+        S3_Bucket='bucket-A';
         
-    elif WAS == 'Prod_backend_htlcms':
-        logPath='Htlcms';
-        S3_Bucket='htlcms-logs';
-        
-    elif WAS == 'Prod_backend_htlkakao':
-        logPath='HtlKakao';
-        S3_Bucket='htlkakao-logs';
-    
-    elif WAS == 'front':
-        logPath='auth';
+    elif WAS == 'service-B':
+        logPath='logpathB';
+        S3_Bucket='bucket-B';
+
     else:
         print("No Such Group Tags...")
         return 0;
